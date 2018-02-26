@@ -1,3 +1,4 @@
 b(EStimatedRTT).- awk '{alpha=0.125}{}{Estimated=(((1-alpha)*Estimated)+(alpha*216.708))}{print Estimated} END {}' SetA.txt > Estimated.txt
-b(DevRTT).- awk '{betha=0.25}{cuadrado=(216.708-212.762)*(216.708-212.762)}{abs=sqrt(cuadrado)}{DevRTT=((1-betha)*(DevRTT))+((betha)*(abs))} {print DevRTT} END{}' SetA.txt > DevRTT.txt
+b(DevRTT).- awk '{betha=0.25}{cuadrado=(216.708-$1)*(216.708-$1)}{abs=sqrt(cuadrado)}{DevRTT=((1-betha)*(DevRTT))+((betha)*(abs))} {$2=DevRTT} {print} END{}' Estimated.txt > Est_DevRTT.txt
+
 
