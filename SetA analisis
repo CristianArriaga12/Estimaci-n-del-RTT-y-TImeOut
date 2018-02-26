@@ -1,0 +1,1 @@
+b) awk '{alpha=0.125}{}{Estimated=(((1-alpha)*Estimated)+(alpha*216.708))}{print Estimated} END {}' SetA.txt > Estimated.txt
