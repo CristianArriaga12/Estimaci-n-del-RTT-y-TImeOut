@@ -1,0 +1,13 @@
+Analisis SetE
+
+EStimatedRTT.-
+b) awk '{alpha=0.125}{Estimated=(((1-alpha)*Estimated)+(alpha*0.483))} {$2=Estimated} {print} END {}' SetE.txt > EstimatedE.txt 
+
+DevRTT.-
+b) awk '{betha=0.25}{cuadrado=(0.483-$2)*(0.483-$2)}{abs=sqrt(cuadrado)}{DevRTT=((1-betha)*(DevRTT))+((betha)*(abs))} {$3=DevRTT} {print} END{}' EstimatedE.txt > Est_DevRTTE.txt
+
+Timeout.-
+b) awk '{TimeoutInterval=$2+(4*$3)} {$4=TimeoutInterval} {print} END{}' Est_DevRTTE.txt > Est_Dev_TimeE.txt
+
+RMS.-
+b) awk '{RMS=($2*$2)/(sqrt(0.483*0.483))} {$5=RMS} {print} END{}' Est_Dev_TimeE.txt > AnalisisE.txt
