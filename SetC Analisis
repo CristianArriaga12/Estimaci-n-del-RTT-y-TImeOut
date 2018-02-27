@@ -1,1 +1,13 @@
-Analisis
+Analisis SetC
+
+EStimatedRTT.-
+b) awk '{alpha=0.125}{Estimated=(((1-alpha)*Estimated)+(alpha*0.551))} {$2=Estimated} {print} END {}' SetC.txt > EstimatedC.txt 
+
+DevRTT.-
+b) awk '{betha=0.25}{cuadrado=(0.551-$2)*(0.551-$2)}{abs=sqrt(cuadrado)}{DevRTT=((1-betha)*(DevRTT))+((betha)*(abs))} {$3=DevRTT} {print} END{}' EstimatedC.txt > Est_DevRTTC.txt
+
+Timeout.-
+b) awk '{TimeoutInterval=$2+(4*$3)} {$4=TimeoutInterval} {print} END{}' Est_DevRTTC.txt > Est_Dev_TimeC.txt
+
+RMS.-
+b) awk '{RMS=($2*$2)/(sqrt(0.551*0.551))} {$5=RMS} {print} END{}' Est_Dev_TimeC.txt > AnalisisC.txt
