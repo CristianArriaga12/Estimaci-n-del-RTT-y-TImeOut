@@ -1,10 +1,14 @@
 Analisis SetA
 
 EStimatedRTT.-
-b) awk '{alpha=0.125}{}{Estimated=(((1-alpha)*Estimated)+(alpha*216.708))}{print Estimated} END {}' SetA.txt > Estimated.txt
+b) awk '{alpha=0.125}{Estimated=(((1-alpha)*Estimated)+(alpha*216.708))} {$2=Estimated} {print} END {}' SetA.txt > Estimated.txt 
 
 DevRTT.-
-b) awk '{betha=0.25}{cuadrado=(216.708-$1)*(216.708-$1)}{abs=sqrt(cuadrado)}{DevRTT=((1-betha)*(DevRTT))+((betha)*(abs))} {$2=DevRTT} {print} END{}' Estimated.txt > Est_DevRTT.txt
+b) awk '{betha=0.25}{cuadrado=(216.708-$2)*(216.708-$2)}{abs=sqrt(cuadrado)}{DevRTT=((1-betha)*(DevRTT))+((betha)*(abs))} {$3=DevRTT} {print} END{}' Estimated.txt > Est_DevRTT.txt
 
 Timeout.-
-b) awk '{TimeoutInterval=$1+(4*$2)} {$3=TimeoutInterval} {print} END{}' Est_DevRTT.txt > Est_Dev_Time.txt 
+b) awk '{TimeoutInterval=$2+(4*$3)} {$4=TimeoutInterval} {print} END{}' Est_DevRTT.txt > Est_Dev_Time.txt
+
+RMS.-
+b) awk '{RMS=($2*$2)/(sqrt(216.708*216.708))} {$5=RMS} {print} END{}' Est_Dev_Time.txt > Analisis.txt
+
